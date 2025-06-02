@@ -69,7 +69,16 @@ userRouter.post("/signUp", async (req, res) => {
     }
 });
 
-
+userRouter.get("/me",verification,async(req,res)=>{
+    try{
+        const me = await  User2.findById(req.userId);
+         res.status(200).json(me)
+    }catch(err)
+    {
+       return  res.status(500).json({message:"error cannot "})
+    }
+    
+})
 
 const singInSchema = z.object({
     email:z.string().email(),
@@ -151,14 +160,9 @@ userRouter.get("/bulk", async (req, res) => {
         }]
     })
 
-    res.json({
-        user: users.map(user => ({
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            _id: user._id
-        }))
-    })
+    res.json(
+        users
+    )
 })
 
 

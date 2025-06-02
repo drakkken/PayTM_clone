@@ -7,7 +7,11 @@ dotenv.config();
 
 const app = express();
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+    origin: "http://localhost:5173",  // Vite's default dev server
+    credentials: true                 // if you're sending cookies or using Authorization headers
+  }));
 
 
 
